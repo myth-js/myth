@@ -1,9 +1,5 @@
-const events: {[key: string]: Array<unknown>} = {};
+import { events } from "./events";
 
-export function subscribe(event: string, callback: (...args: Array<unknown>) => unknown) {
-  if(events.hasOwnProperty(event)) {
-    events[event] = [];
-  }
-
-  return events[event].push(callback);
- }
+export function subscribe(key: string, callback: (args?: unknown) => unknown) {
+  return events.addEvent(key, callback)
+}
