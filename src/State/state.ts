@@ -1,6 +1,6 @@
 import { publish } from "./publish";
 
-export const state = (() => {
+const __state = (() => {
   let _state = new Proxy({}, {
     set: function(state: {[key: string]: unknown}, key: string, value: unknown) {
 
@@ -16,9 +16,10 @@ export const state = (() => {
   return _state;
 })();
 
-/**
- * We'll see if we need
- */
-// export function setState() {
+export function setState(state: {[key: string]: unknown}) {
+  for (const key in state) {
+    __state[key] = state[key];
+  }
+}
 
-// }
+export const state = __state;
